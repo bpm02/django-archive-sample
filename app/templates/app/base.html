@@ -1,0 +1,87 @@
+{% load app_tags %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Site Title</title>
+    <link href="https://fonts.googleapis.com/css?family=Aldrich|Noto+Sans+JP&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+        }
+            body {
+                display: grid;
+                grid-template-columns: 15px 1fr 15px;
+                grid-template-rows: [head] 200px 25px [main] auto 25px [side] auto;
+                font-family: 'Aldrich', 'Noto Sans JP', sans-serif;
+                background-color: #f5f5f5;
+            }
+
+            body::before {
+                content: "";
+                grid-column: 1 / -1;
+                grid-row: head;
+                background-color: #000;
+                z-index: -1;
+            }
+
+
+            body > * {
+                grid-column: 2;
+            }
+
+            header {
+                grid-row: head;
+                align-self: center;
+                font-size: 50px;
+                font-family: 'Aldrich', sans-serif;
+            }
+
+            header > a {
+                color: #fff;
+                text-decoration: none;
+            }
+
+            main {
+                grid-row: main;
+            }
+
+            aside {
+                grid-row: side;
+            }
+
+        @media (min-width: 768px) {
+            body {
+                display: grid;
+                grid-template-columns: 1fr 600px 60px 300px 1fr;
+                grid-template-rows: [head] 200px 25px [main side] auto;
+            }
+
+            header {
+
+            }
+
+            main {
+            }
+
+            aside {
+                grid-column: 4;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<header><a href="{% url 'app:top' %}">Site Title</a></header>
+
+<main>{% block content %}{% endblock %}</main>
+
+<aside>
+    <h2>Archives</h2>
+    {% render_month_links %}
+</aside>
+
+</body>
+</html>
